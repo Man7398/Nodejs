@@ -1,0 +1,55 @@
+const http = require('http');
+const server = http.createServer ((req, res) => {
+//console.log('request made');
+console.log(req.url,req.method);
+
+//set header content type 
+res.setHeader('Content-Type','text/html');
+
+// res.write('<p>Hello Ninjas</p>');
+// res.write('<p>Hello Ninjas</p>');
+
+//ROUTING OTHER PAGES
+//Conditions to check about,index and other than that it shows 404
+let path = './html/';
+switch(req.url) {
+case '/' :
+path + 'index.html';
+res.statusCode=200;
+break;
+case '/about':
+path += 'about.html';
+res.statusCode=200;
+break;
+
+//REDIRECT CASE
+case '/about-me':
+ //It is permanently removed   
+res.statusCode=301;
+res.setHeader('Location', '/about');
+res.end();
+break;
+
+default:
+path+='404.html';
+res.statusCode=400;
+break;
+}
+
+// To send an html file
+fs.readFile('./html/index.html', (err, data) => {
+    if (err) {
+    console.log(err);
+    res.end();
+    } else {
+    //res.write(data);
+    res.statusCode=200;
+    res.end(data);
+    }
+    })
+
+});
+
+server.listen (3000, 'localhost', () => {
+console.log('listening for requests on port 3000')
+})
