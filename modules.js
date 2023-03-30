@@ -1,3 +1,5 @@
+//Import from Array.js file
+
 const { arr,ages}=require('./array')
 //console.log(xuz);
 // [ 'toshi', 'tjsdo', 'jackal', 'jackuy' ]
